@@ -11,6 +11,7 @@ using System.Drawing.Printing;
 using System.DirectoryServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Button = System.Windows.Forms.Button;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace pcstore_arm
 {
@@ -27,10 +28,13 @@ namespace pcstore_arm
         private Dictionary<int, int> productQuantities = new Dictionary<int, int>();
         private Dictionary<int, int> productStock = new Dictionary<int, int>(); // Для хранения доступного количества товаров
 
-        private string query = "SELECT * FROM public.catalog";
+        string companyFilePath = "etc\\configs\\company.txt";
+        private string query = "SELECT * FROM public.catalog WHERE quantity != 0";
 
         themes Themes = new themes();
         string currentTheme;
+
+        string companyString;
 
         public catalog(IConnect connectionProvider)
         {
@@ -41,9 +45,17 @@ namespace pcstore_arm
             {
                 Themes.ApplyLightTheme(this);
             }
-            else
+            else if (currentTheme == "blue")
             {
                 Themes.ApplyBlueTheme(this);
+            }
+            else if (currentTheme == "green")
+            {
+                Themes.ApplyGreenTheme(this);
+            }
+            else if (currentTheme == "pink")
+            {
+                Themes.ApplyPinkTheme(this);
             }
 
             this.connectionProvider = connectionProvider;
@@ -61,14 +73,34 @@ namespace pcstore_arm
         private void catalog_Load(object sender, EventArgs e)
         {
             LoadProducts(query);
+            LoadCompanyConfig();
         }
 
         private void ClearCart()
         {
-            selectedProducts.Clear();
+            selectedProducts.Clear(); 
             productQuantities.Clear(); // Очистите словарь количества
             flowLayoutPanel2.Controls.Clear();
             tabPage2.Text = "Корзина (0)"; // Сброс текста вкладки
+        }
+
+        private void LoadCompanyConfig()
+        {
+            if (File.Exists(companyFilePath) && File.ReadAllLines(companyFilePath).Length > 0)
+            {
+                try
+                {
+                    string[] lines = File.ReadAllLines(companyFilePath);
+                    companyString += "\n" + lines[0];
+                    companyString += "\n" + lines[1];
+                    companyString += "\n" + lines[2];
+                    companyString += "\n" + lines[3];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при чтении данных из файла: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void LoadProducts(string query)
@@ -170,7 +202,7 @@ namespace pcstore_arm
                 }
                 else
                 {
-                    MessageBox.Show($"Невозможно добавить больше товаров. Доступное количество: {productStock[productId]}.");
+                    MessageBox.Show($"Невозможно добавить больше товаров. Доступное количество: {productStock[productId]}.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -189,7 +221,7 @@ namespace pcstore_arm
 
             if (selectedProducts.Count == 0)
             {
-                MessageBox.Show("Корзина пуста");
+                MessageBox.Show("Корзина пуста", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 tabPage2.Text = "Корзина";
                 return;
             }
@@ -295,6 +327,11 @@ namespace pcstore_arm
 
         private void order_button_Click(object sender, EventArgs e)
         {
+            if (selectedProducts.Count == 0)
+            {
+                MessageBox.Show("Корзина пуста. Пожалуйста, добавьте товары в корзину перед оформлением заказа.", "Пустая корзина", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             PlaceOrder();
         }
 
@@ -351,7 +388,7 @@ namespace pcstore_arm
                 {
                     // Откатить транзакцию в случае ошибки
                     transaction.Rollback();
-                    MessageBox.Show($"Ошибка при оформлении заказа: {ex.Message}");
+                    MessageBox.Show($"Ошибка при оформлении заказа: {ex.Message}","Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 LoadProducts(query);
             }
@@ -389,27 +426,42 @@ namespace pcstore_arm
 
         private void PrintReceipt(int orderId, decimal orderSum, Dictionary<int, (int Quantity, decimal Price)> orderItems)
         {
-            // Сгенерировать текст чека
             string receipt = $"Заказ №{orderId}\n";
             receipt += $"Дата: {DateTime.Now}\n";
             receipt += $"Сумма: ₸{orderSum:0.00}\n";
-            receipt += "\nСписок товаров:\n";
+            receipt += "-----------------------------------------------------\n";
+            receipt += "Список товаров:\n";
+
             foreach (var item in orderItems)
             {
-                receipt += $"Товар ID: {item.Key}, Количество: {item.Value.Quantity}, Цена: ₸{item.Value.Price:0.00}, Всего: ₸{item.Value.Price * item.Value.Quantity:0.00}\n";
+                string productQuery = "SELECT name, cost FROM public.catalog WHERE id = @id";
+                using (var command = new NpgsqlCommand(productQuery, connection))
+                {
+                    command.Parameters.AddWithValue("id", item.Key);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string productName = reader.GetString(0);
+                            decimal productCost = reader.GetDecimal(1);
+                            receipt += $"Товар: {productName}\n";
+                            receipt += $"Количество: {item.Value.Quantity}, Цена за штуку: ₸{productCost:0.00}, Всего: ₸{item.Value.Quantity * productCost:0.00}\n\n";
+                        }
+                    }
+                }
             }
 
-            // Создать объект PrintDocument и назначить обработчик события PrintPage
+            receipt += "-----------------------------------------------------\n";
+            receipt += companyString;
+
             PrintDocument printDocument = new PrintDocument();
             printDocument.PrintPage += (sender, e) => PrintPageHandler(sender, e, receipt);
 
-            // Показать PrintDialog
             PrintDialog printDialog = new PrintDialog();
             printDialog.Document = printDocument;
 
             if (printDialog.ShowDialog() == DialogResult.OK)
             {
-                // Напечатать документ
                 printDocument.Print();
             }
         }
@@ -434,7 +486,7 @@ namespace pcstore_arm
         {
             if (search_textBox.Text != "Поиск" || search_pictureBox.Text.Length > 1)
             {
-                query = $"SELECT * FROM public.catalog WHERE name ILIKE '%{search_textBox.Text}%';";
+                query = $"SELECT * FROM public.catalog WHERE name ILIKE '%{search_textBox.Text}%' and quantity != 0;";
                 LoadProducts(query);
             }
         }
@@ -444,40 +496,75 @@ namespace pcstore_arm
             switch (sorting_comboBox.Text)
             {
                 case "ID  (Возрастание)":
-                    query = "SELECT * FROM public.catalog ORDER BY id ASC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY id ASC";
                     break;
                 case "Название  (Возрастание)":
-                    query = "SELECT * FROM public.catalog ORDER BY name ASC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY name ASC";
                     break;
                 case "Цена  (Возрастание)":
-                    query = "SELECT * FROM public.catalog ORDER BY cost ASC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY cost ASC";
                     break;
                 case "Категория  (Возрастание)":
-                    query = "SELECT * FROM public.catalog ORDER BY category ASC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY category ASC";
                     break;
                 case "Количество  (Возрастание)":
-                    query = "SELECT * FROM public.catalog ORDER BY quantity ASC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY quantity ASC";
                     break;
                 case "ID  (Убывание)":
-                    query = "SELECT * FROM public.catalog ORDER BY id DESC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY id DESC";
                     break;
                 case "Название  (Убывание)":
-                    query = "SELECT * FROM public.catalog ORDER BY name DESC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY name DESC";
                     break;
                 case "Цена  (Убывание)":
-                    query = "SELECT * FROM public.catalog ORDER BY cost DESC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY cost DESC";
                     break;
                 case "Категория  (Убывание)":
-                    query = "SELECT * FROM public.catalog ORDER BY category DESC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY category DESC";
                     break;
                 case "Количество  (Убывание)":
-                    query = "SELECT * FROM public.catalog ORDER BY quantity DESC";
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0 ORDER BY quantity DESC";
+                    break;
+                case "Без сортировки":
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0";
                     break;
             }
 
             LoadProducts(query);
         }
+        private void category_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            query = "SELECT * FROM public.catalog WHERE quantity != 0";
 
+            switch (category_comboBox.Text)
+            {
+                case "Системные блоки":
+                    query += " and category = 'Системные блоки'";
+                    break;
+                case "Ноутбуки":
+                    query += " and category = 'Ноутбуки'";
+                    break;
+                case "Мыши":
+                    query += " and category = 'Мыши'";
+                    break;
+                case "Клавиатуры":
+                    query += " and category = 'Клавиатуры'";
+                    break;
+                case "Накопители":
+                    query += " and category = 'Накопители'";
+                    break;
+                case "Кабели":
+                    query += " and category = 'Кабели'";
+                    break;
+                case "МФУ":
+                    query += " and category = 'МФУ'";
+                    break;
+                case "Без категории":
+                    query = "SELECT * FROM public.catalog WHERE quantity != 0";
+                    break;
+            }
+            LoadProducts(query);
+        }
         private void открытьМенюToolStripMenuItem_Click(object sender, EventArgs e)
         {
             main mainForm = new main(connectionProvider);

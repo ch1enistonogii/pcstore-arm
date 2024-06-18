@@ -30,18 +30,20 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            tabPage2 = new TabPage();
-            flowLayoutPanel2 = new FlowLayoutPanel();
-            panel2 = new Panel();
             panel1 = new Panel();
+            category_comboBox = new ComboBox();
             sorting_comboBox = new ComboBox();
             search_pictureBox = new PictureBox();
             search_textBox = new TextBox();
             order_button = new Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            tabPage2 = new TabPage();
+            flowLayoutPanel2 = new FlowLayoutPanel();
+            panel2 = new Panel();
             toolStrip1 = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             открытьМенюToolStripMenuItem = new ToolStripMenuItem();
+            обновитьДанныеToolStripMenuItem = new ToolStripMenuItem();
             перезапускToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             toolStripDropDownButton2 = new ToolStripDropDownButton();
@@ -55,12 +57,11 @@
             toolStripDropDownButton4 = new ToolStripDropDownButton();
             открытьИсториюПокупокToolStripMenuItem = new ToolStripMenuItem();
             перейтиВИсториюПокупокToolStripMenuItem = new ToolStripMenuItem();
-            обновитьДанныеToolStripMenuItem = new ToolStripMenuItem();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            tabPage2.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)search_pictureBox).BeginInit();
+            tabPage2.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -72,75 +73,51 @@
             tabControl1.Location = new Point(12, 28);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(553, 410);
+            tabControl1.Size = new Size(776, 410);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(panel1);
             tabPage1.Controls.Add(flowLayoutPanel1);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(545, 382);
+            tabPage1.Size = new Size(768, 382);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Каталог";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Location = new Point(3, 3);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(536, 360);
-            flowLayoutPanel1.TabIndex = 0;
-            // 
-            // tabPage2
-            // 
-            tabPage2.Controls.Add(flowLayoutPanel2);
-            tabPage2.Controls.Add(panel2);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(545, 382);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Корзина";
-            tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // flowLayoutPanel2
-            // 
-            flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flowLayoutPanel2.AutoScroll = true;
-            flowLayoutPanel2.Location = new Point(3, 3);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(603, 376);
-            flowLayoutPanel2.TabIndex = 3;
-            // 
-            // panel2
-            // 
-            panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(389, 3);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(153, 376);
-            panel2.TabIndex = 2;
-            // 
             // panel1
             // 
+            panel1.Controls.Add(category_comboBox);
             panel1.Controls.Add(sorting_comboBox);
             panel1.Controls.Add(search_pictureBox);
             panel1.Controls.Add(search_textBox);
             panel1.Controls.Add(order_button);
             panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(571, 25);
+            panel1.Location = new Point(536, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(229, 425);
+            panel1.Size = new Size(229, 376);
             panel1.TabIndex = 1;
+            // 
+            // category_comboBox
+            // 
+            category_comboBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            category_comboBox.FormattingEnabled = true;
+            category_comboBox.Items.AddRange(new object[] { "Системные блоки", "Ноутбуки", "Мыши", "Клавиатуры", "Накопители", "Кабели", "МФУ", "Без категории" });
+            category_comboBox.Location = new Point(7, 86);
+            category_comboBox.Name = "category_comboBox";
+            category_comboBox.Size = new Size(215, 31);
+            category_comboBox.TabIndex = 8;
+            category_comboBox.Text = "Категория";
+            category_comboBox.SelectedIndexChanged += category_comboBox_SelectedIndexChanged;
             // 
             // sorting_comboBox
             // 
             sorting_comboBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
             sorting_comboBox.FormattingEnabled = true;
-            sorting_comboBox.Items.AddRange(new object[] { "ID  (Возрастание)", "Название  (Возрастание)", "Цена  (Возрастание)", "Категория  (Возрастание)", "Количество  (Возрастание)", "ID  (Убывание)", "Название  (Убывание)", "Цена  (Убывание)", "Категория  (Убывание)", "Количество  (Убывание)" });
+            sorting_comboBox.Items.AddRange(new object[] { "ID  (Возрастание)", "Название  (Возрастание)", "Цена  (Возрастание)", "Категория  (Возрастание)", "Количество  (Возрастание)", "ID  (Убывание)", "Название  (Убывание)", "Цена  (Убывание)", "Категория  (Убывание)", "Количество  (Убывание)", "Без сортировки" });
             sorting_comboBox.Location = new Point(7, 49);
             sorting_comboBox.Name = "sorting_comboBox";
             sorting_comboBox.Size = new Size(215, 31);
@@ -175,13 +152,51 @@
             // order_button
             // 
             order_button.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
-            order_button.Location = new Point(16, 361);
+            order_button.Location = new Point(7, 123);
             order_button.Name = "order_button";
-            order_button.Size = new Size(200, 52);
+            order_button.Size = new Size(215, 52);
             order_button.TabIndex = 0;
             order_button.Text = ">>> Купить <<<";
             order_button.UseVisualStyleBackColor = true;
             order_button.Click += order_button_Click;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.Location = new Point(3, 3);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(524, 360);
+            flowLayoutPanel1.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(flowLayoutPanel2);
+            tabPage2.Controls.Add(panel2);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(768, 382);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Корзина";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flowLayoutPanel2.AutoScroll = true;
+            flowLayoutPanel2.Location = new Point(3, 3);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(603, 376);
+            flowLayoutPanel2.TabIndex = 3;
+            // 
+            // panel2
+            // 
+            panel2.Dock = DockStyle.Right;
+            panel2.Location = new Point(612, 3);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(153, 376);
+            panel2.TabIndex = 2;
             // 
             // toolStrip1
             // 
@@ -205,14 +220,21 @@
             // открытьМенюToolStripMenuItem
             // 
             открытьМенюToolStripMenuItem.Name = "открытьМенюToolStripMenuItem";
-            открытьМенюToolStripMenuItem.Size = new Size(180, 22);
+            открытьМенюToolStripMenuItem.Size = new Size(172, 22);
             открытьМенюToolStripMenuItem.Text = "Перейти в меню";
             открытьМенюToolStripMenuItem.Click += открытьМенюToolStripMenuItem_Click;
+            // 
+            // обновитьДанныеToolStripMenuItem
+            // 
+            обновитьДанныеToolStripMenuItem.Name = "обновитьДанныеToolStripMenuItem";
+            обновитьДанныеToolStripMenuItem.Size = new Size(172, 22);
+            обновитьДанныеToolStripMenuItem.Text = "Обновить данные";
+            обновитьДанныеToolStripMenuItem.Click += обновитьДанныеToolStripMenuItem_Click;
             // 
             // перезапускToolStripMenuItem
             // 
             перезапускToolStripMenuItem.Name = "перезапускToolStripMenuItem";
-            перезапускToolStripMenuItem.Size = new Size(180, 22);
+            перезапускToolStripMenuItem.Size = new Size(172, 22);
             перезапускToolStripMenuItem.Text = "Перезапуск";
             перезапускToolStripMenuItem.Click += перезапускToolStripMenuItem_Click;
             // 
@@ -303,19 +325,11 @@
             перейтиВИсториюПокупокToolStripMenuItem.Text = "Перейти в историю покупок";
             перейтиВИсториюПокупокToolStripMenuItem.Click += перейтиВИсториюПокупокToolStripMenuItem_Click;
             // 
-            // обновитьДанныеToolStripMenuItem
-            // 
-            обновитьДанныеToolStripMenuItem.Name = "обновитьДанныеToolStripMenuItem";
-            обновитьДанныеToolStripMenuItem.Size = new Size(180, 22);
-            обновитьДанныеToolStripMenuItem.Text = "Обновить данные";
-            обновитьДанныеToolStripMenuItem.Click += обновитьДанныеToolStripMenuItem_Click;
-            // 
             // catalog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(panel1);
             Controls.Add(toolStrip1);
             Controls.Add(tabControl1);
             Name = "catalog";
@@ -323,10 +337,10 @@
             Load += catalog_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            tabPage2.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)search_pictureBox).EndInit();
+            tabPage2.ResumeLayout(false);
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ResumeLayout(false);
@@ -363,5 +377,6 @@
         private ToolStripMenuItem открытьИсториюПокупокToolStripMenuItem;
         private ToolStripMenuItem перейтиВИсториюПокупокToolStripMenuItem;
         private ToolStripMenuItem обновитьДанныеToolStripMenuItem;
+        private ComboBox category_comboBox;
     }
 }

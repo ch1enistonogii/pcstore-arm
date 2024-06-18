@@ -39,8 +39,18 @@
             port_textBox = new TextBox();
             ip_textBox = new TextBox();
             tabPage2 = new TabPage();
-            darktheme_checkBox = new CheckBox();
+            panel8 = new Panel();
+            panel2 = new Panel();
+            panel9 = new Panel();
             lighttheme_checkBox = new CheckBox();
+            panel6 = new Panel();
+            bluetheme_checkBox = new CheckBox();
+            panel7 = new Panel();
+            greentheme_checkBox = new CheckBox();
+            panel4 = new Panel();
+            pinktheme_checkBox = new CheckBox();
+            panel5 = new Panel();
+            panel3 = new Panel();
             tabPage3 = new TabPage();
             button1 = new Button();
             label4 = new Label();
@@ -189,8 +199,18 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(darktheme_checkBox);
+            tabPage2.Controls.Add(panel8);
+            tabPage2.Controls.Add(panel2);
+            tabPage2.Controls.Add(panel9);
             tabPage2.Controls.Add(lighttheme_checkBox);
+            tabPage2.Controls.Add(panel6);
+            tabPage2.Controls.Add(bluetheme_checkBox);
+            tabPage2.Controls.Add(panel7);
+            tabPage2.Controls.Add(greentheme_checkBox);
+            tabPage2.Controls.Add(panel4);
+            tabPage2.Controls.Add(pinktheme_checkBox);
+            tabPage2.Controls.Add(panel5);
+            tabPage2.Controls.Add(panel3);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -199,29 +219,103 @@
             tabPage2.Text = "Внешний вид";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // darktheme_checkBox
+            // panel8
             // 
-            darktheme_checkBox.AutoSize = true;
-            darktheme_checkBox.Location = new Point(197, 311);
-            darktheme_checkBox.Name = "darktheme_checkBox";
-            darktheme_checkBox.Size = new Size(108, 19);
-            darktheme_checkBox.TabIndex = 3;
-            darktheme_checkBox.Text = "Небесная тема";
-            darktheme_checkBox.UseVisualStyleBackColor = true;
-            darktheme_checkBox.CheckedChanged += darktheme_checkBox_CheckedChanged;
+            panel8.Location = new Point(245, 344);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(40, 40);
+            panel8.TabIndex = 17;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.WhiteSmoke;
+            panel2.Location = new Point(199, 131);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(40, 40);
+            panel2.TabIndex = 12;
+            // 
+            // panel9
+            // 
+            panel9.Location = new Point(199, 344);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(40, 40);
+            panel9.TabIndex = 14;
             // 
             // lighttheme_checkBox
             // 
             lighttheme_checkBox.AutoSize = true;
-            lighttheme_checkBox.Checked = true;
-            lighttheme_checkBox.CheckState = CheckState.Checked;
-            lighttheme_checkBox.Location = new Point(197, 162);
+            lighttheme_checkBox.Location = new Point(199, 106);
             lighttheme_checkBox.Name = "lighttheme_checkBox";
             lighttheme_checkBox.Size = new Size(99, 19);
-            lighttheme_checkBox.TabIndex = 2;
+            lighttheme_checkBox.TabIndex = 8;
             lighttheme_checkBox.Text = "Светлая тема";
             lighttheme_checkBox.UseVisualStyleBackColor = true;
-            lighttheme_checkBox.CheckedChanged += lighttheme_checkBox_CheckedChanged;
+            // 
+            // panel6
+            // 
+            panel6.Location = new Point(245, 273);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(40, 40);
+            panel6.TabIndex = 18;
+            // 
+            // bluetheme_checkBox
+            // 
+            bluetheme_checkBox.AutoSize = true;
+            bluetheme_checkBox.Location = new Point(199, 177);
+            bluetheme_checkBox.Name = "bluetheme_checkBox";
+            bluetheme_checkBox.Size = new Size(100, 19);
+            bluetheme_checkBox.TabIndex = 9;
+            bluetheme_checkBox.Text = "Голубая тема";
+            bluetheme_checkBox.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            panel7.Location = new Point(199, 273);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(40, 40);
+            panel7.TabIndex = 15;
+            // 
+            // greentheme_checkBox
+            // 
+            greentheme_checkBox.AutoSize = true;
+            greentheme_checkBox.Location = new Point(199, 248);
+            greentheme_checkBox.Name = "greentheme_checkBox";
+            greentheme_checkBox.Size = new Size(100, 19);
+            greentheme_checkBox.TabIndex = 10;
+            greentheme_checkBox.Text = "Зеленая тема";
+            greentheme_checkBox.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            panel4.Location = new Point(245, 202);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(40, 40);
+            panel4.TabIndex = 19;
+            // 
+            // pinktheme_checkBox
+            // 
+            pinktheme_checkBox.AutoSize = true;
+            pinktheme_checkBox.Location = new Point(199, 319);
+            pinktheme_checkBox.Name = "pinktheme_checkBox";
+            pinktheme_checkBox.Size = new Size(99, 19);
+            pinktheme_checkBox.TabIndex = 11;
+            pinktheme_checkBox.Text = "Розовая тема";
+            pinktheme_checkBox.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            panel5.Location = new Point(199, 202);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(40, 40);
+            panel5.TabIndex = 16;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.White;
+            panel3.Location = new Point(245, 131);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(40, 40);
+            panel3.TabIndex = 13;
             // 
             // tabPage3
             // 
@@ -251,6 +345,7 @@
             button1.TabIndex = 17;
             button1.Text = "Применить";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // label4
             // 
@@ -374,8 +469,6 @@
         private TextBox db_textBox;
         private TextBox port_textBox;
         private TextBox ip_textBox;
-        private CheckBox darktheme_checkBox;
-        private CheckBox lighttheme_checkBox;
         private TextBox name_textBox;
         private TextBox website_textBox;
         private TextBox phone_textBox;
@@ -385,5 +478,17 @@
         private Label label2;
         private Label label1;
         private Button button1;
+        private Panel panel8;
+        private Panel panel9;
+        private Panel panel6;
+        private Panel panel7;
+        private Panel panel4;
+        private Panel panel5;
+        private Panel panel3;
+        private Panel panel2;
+        private CheckBox pinktheme_checkBox;
+        private CheckBox greentheme_checkBox;
+        private CheckBox bluetheme_checkBox;
+        private CheckBox lighttheme_checkBox;
     }
 }

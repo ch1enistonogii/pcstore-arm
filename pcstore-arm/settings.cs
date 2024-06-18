@@ -1,12 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace pcstore_arm
@@ -15,32 +9,30 @@ namespace pcstore_arm
     {
         string configFilePath = "etc\\configs\\db.txt"; // Путь к файлу конфигурации
         string themeFilePath = "etc\\configs\\theme.txt";
+        string companyFilePath = "etc\\configs\\company.txt";
 
         themes Themes = new themes();
         string currentTheme;
 
         private readonly IConnect connectionProvider;
         private NpgsqlConnection connection;
+
         public settings(IConnect connectionProvider)
         {
             InitializeComponent();
             this.connectionProvider = connectionProvider;
             connection = connectionProvider.GetConnection();
         }
+
         private void settings_Load(object sender, EventArgs e)
         {
             LoadConfig();
+            LoadCompanyConfig();
             LoadThemes();
             currentTheme = Themes.LoadTheme();
-            if (currentTheme == "light")
-            {
-                Themes.ApplyLightTheme(this);
-            }
-            else
-            {
-                Themes.ApplyBlueTheme(this);
-            }
+            ApplyCurrentTheme();
         }
+
         private void LoadConfig()
         {
             if (File.Exists(configFilePath) && File.ReadAllLines(configFilePath).Length > 0)
@@ -59,27 +51,145 @@ namespace pcstore_arm
             }
         }
 
+        private void LoadCompanyConfig()
+        {
+            if (File.Exists(companyFilePath) && File.ReadAllLines(companyFilePath).Length > 0)
+            {
+                try
+                {
+                    string[] lines = File.ReadAllLines(companyFilePath);
+                    name_textBox.Text = lines[0];
+                    address_textBox.Text = lines[1];
+                    phone_textBox.Text = lines[2];
+                    website_textBox.Text = lines[3];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при чтении данных из файла: {ex.Message}");
+                }
+            }
+        }
+
         private void LoadThemes()
         {
             // Загрузите текущую тему из файла и установите соответствующие чекбоксы
-            string currentTheme = File.ReadAllText(themeFilePath);
+            currentTheme = File.ReadAllText(themeFilePath).Trim();
 
             lighttheme_checkBox.CheckedChanged -= lighttheme_checkBox_CheckedChanged;
-            darktheme_checkBox.CheckedChanged -= darktheme_checkBox_CheckedChanged;
+            bluetheme_checkBox.CheckedChanged -= bluetheme_checkBox_CheckedChanged;
+            greentheme_checkBox.CheckedChanged -= greentheme_checkBox_CheckedChanged;
+            pinktheme_checkBox.CheckedChanged -= pinktheme_checkBox_CheckedChanged;
 
-            if (currentTheme == "light")
+            switch (currentTheme)
             {
-                lighttheme_checkBox.Checked = true;
-                darktheme_checkBox.Checked = false;
-            }
-            else if (currentTheme == "dark")
-            {
-                darktheme_checkBox.Checked = true;
-                lighttheme_checkBox.Checked = false;
+                case "light":
+                    lighttheme_checkBox.Checked = true;
+                    break;
+                case "blue":
+                    bluetheme_checkBox.Checked = true;
+                    break;
+                case "green":
+                    greentheme_checkBox.Checked = true;
+                    break;
+                case "pink":
+                    pinktheme_checkBox.Checked = true;
+                    break;
             }
 
             lighttheme_checkBox.CheckedChanged += lighttheme_checkBox_CheckedChanged;
-            darktheme_checkBox.CheckedChanged += darktheme_checkBox_CheckedChanged;
+            bluetheme_checkBox.CheckedChanged += bluetheme_checkBox_CheckedChanged;
+            greentheme_checkBox.CheckedChanged += greentheme_checkBox_CheckedChanged;
+            pinktheme_checkBox.CheckedChanged += pinktheme_checkBox_CheckedChanged;
+        }
+
+        private void ApplyCurrentTheme()
+        {
+            switch (currentTheme)
+            {
+                case "light":
+                    Themes.ApplyLightTheme(this);
+                    break;
+                case "blue":
+                    Themes.ApplyBlueTheme(this);
+                    break;
+                case "green":
+                    Themes.ApplyGreenTheme(this);
+                    break;
+                case "pink":
+                    Themes.ApplyPinkTheme(this);
+                    break;
+            }
+        }
+
+        private void lighttheme_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (lighttheme_checkBox.Checked)
+            {
+                UpdateTheme("light");
+                UncheckOtherThemes("light");
+                Themes.ApplyLightTheme(this);
+            }
+        }
+
+        private void bluetheme_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (bluetheme_checkBox.Checked)
+            {
+                UpdateTheme("blue");
+                UncheckOtherThemes("blue");
+                Themes.ApplyBlueTheme(this);
+            }
+        }
+
+        private void greentheme_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (greentheme_checkBox.Checked)
+            {
+                UpdateTheme("green");
+                UncheckOtherThemes("green");
+                Themes.ApplyGreenTheme(this);
+            }
+        }
+
+        private void pinktheme_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (pinktheme_checkBox.Checked)
+            {
+                UpdateTheme("pink");
+                UncheckOtherThemes("pink");
+                Themes.ApplyPinkTheme(this);
+            }
+        }
+
+        private void UncheckOtherThemes(string selectedTheme)
+        {
+            lighttheme_checkBox.CheckedChanged -= lighttheme_checkBox_CheckedChanged;
+            bluetheme_checkBox.CheckedChanged -= bluetheme_checkBox_CheckedChanged;
+            greentheme_checkBox.CheckedChanged -= greentheme_checkBox_CheckedChanged;
+            pinktheme_checkBox.CheckedChanged -= pinktheme_checkBox_CheckedChanged;
+
+            lighttheme_checkBox.Checked = selectedTheme == "light";
+            bluetheme_checkBox.Checked = selectedTheme == "blue";
+            greentheme_checkBox.Checked = selectedTheme == "green";
+            pinktheme_checkBox.Checked = selectedTheme == "pink";
+
+            lighttheme_checkBox.CheckedChanged += lighttheme_checkBox_CheckedChanged;
+            bluetheme_checkBox.CheckedChanged += bluetheme_checkBox_CheckedChanged;
+            greentheme_checkBox.CheckedChanged += greentheme_checkBox_CheckedChanged;
+            pinktheme_checkBox.CheckedChanged += pinktheme_checkBox_CheckedChanged;
+        }
+
+        private void UpdateTheme(string theme)
+        {
+            try
+            {
+                File.WriteAllText(themeFilePath, theme);
+                currentTheme = theme;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении данных в файле конфигурации: {ex.Message}");
+            }
         }
 
         private void ip_pictureBox_Click(object sender, EventArgs e)
@@ -106,11 +216,11 @@ namespace pcstore_arm
         private void setdefault_linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             DialogResult result = MessageBox.Show("Вы уверены, что хотите вернуть настройки подключения по умолчанию? Будут применены следующие параметры:\n" +
-                 "\tIP: localhost\n" +
-                 "\tПорт: 5432\n" +
-                 "\tБаза данных: postgres",
-                 "Настройки по умолчанию",
-                 MessageBoxButtons.YesNo);
+                "\tIP: localhost\n" +
+                "\tПорт: 5432\n" +
+                "\tБаза данных: postgres",
+                "Настройки по умолчанию",
+                MessageBoxButtons.YesNo);
 
             if (result == DialogResult.Yes)
             {
@@ -128,49 +238,29 @@ namespace pcstore_arm
             }
         }
 
-        private void lighttheme_checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (lighttheme_checkBox.Checked)
-            {
-                UpdateTheme("light");
-                darktheme_checkBox.CheckedChanged -= darktheme_checkBox_CheckedChanged;
-                darktheme_checkBox.Checked = false;
-                darktheme_checkBox.CheckedChanged += darktheme_checkBox_CheckedChanged;
-            }
-        }
-
-        private void darktheme_checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (darktheme_checkBox.Checked)
-            {
-                UpdateTheme("dark");
-                lighttheme_checkBox.CheckedChanged -= lighttheme_checkBox_CheckedChanged;
-                lighttheme_checkBox.Checked = false;
-                lighttheme_checkBox.CheckedChanged += lighttheme_checkBox_CheckedChanged;
-            }
-        }
-
-        private void UpdateTheme(string theme)
-        {
-            try
-            {
-                File.WriteAllText(themeFilePath, theme);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при сохранении данных в файле конфигурации: {ex.Message}"); // Отображение сообщения об ошибке
-            }
-        }
-
         private void set_button_Click(object sender, EventArgs e)
         {
             try
             {
-                File.WriteAllText(configFilePath, $"{ip_textBox.Text}\n{ip_textBox.Text}\n{db_textBox.Text}"); // Запись данных в файл
+                File.WriteAllText(configFilePath, $"{ip_textBox.Text}\n{port_textBox.Text}\n{db_textBox.Text}");
+                MessageBox.Show($"Успешно!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при сохранении данных в файле конфигурации: {ex.Message}"); // Отображение сообщения об ошибке
+                MessageBox.Show($"Ошибка при сохранении данных в файле конфигурации: {ex.Message}");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                File.WriteAllText(companyFilePath, $"{name_textBox.Text}\n{address_textBox.Text}\n{phone_textBox.Text}\n{website_textBox.Text}");
+                MessageBox.Show($"Успешно!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении данных в файле конфигурации: {ex.Message}");
             }
         }
     }

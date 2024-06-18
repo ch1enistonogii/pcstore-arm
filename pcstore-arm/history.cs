@@ -18,6 +18,8 @@ namespace pcstore_arm
         themes Themes = new themes();
         string currentTheme;
 
+        string companyFilePath = "etc\\configs\\company.txt";
+        string companyString;
         public history(IConnect connectionProvider)
         {
             InitializeComponent();
@@ -29,20 +31,43 @@ namespace pcstore_arm
             {
                 Themes.ApplyLightTheme(this);
             }
-            else
+            else if (currentTheme == "blue")
             {
                 Themes.ApplyBlueTheme(this);
             }
-
-            if (connection.State != ConnectionState.Open)
+            else if (currentTheme == "green")
             {
-                connection.Open();
+                Themes.ApplyGreenTheme(this);
+            }
+            else if (currentTheme == "pink")
+            {
+                Themes.ApplyPinkTheme(this);
             }
         }
 
         private void history_Load(object sender, EventArgs e)
         {
             LoadReceipts();
+            LoadCompanyConfig();
+        }
+
+        private void LoadCompanyConfig()
+        {
+            if (File.Exists(companyFilePath) && File.ReadAllLines(companyFilePath).Length > 0)
+            {
+                try
+                {
+                    string[] lines = File.ReadAllLines(companyFilePath);
+                    companyString += "\n" + lines[0];
+                    companyString += "\n" + lines[1];
+                    companyString += "\n" + lines[2];
+                    companyString += "\n" + lines[3];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при чтении данных из файла: {ex.Message}");
+                }
+            }
         }
 
         private void LoadReceipts()
@@ -95,7 +120,7 @@ namespace pcstore_arm
                     printButton.Text = "Печать";
                     printButton.Location = new Point(200, 50);
                     printButton.Size = new Size(80, 30);
-                    printButton.Click += (sender, e) => PrintReceipt(orderId, orderSum, orderList);
+                    printButton.Click += (sender, e) => PrintReceipt(orderId, orderTime, orderSum, orderList);
                     receiptPanel.Controls.Add(printButton);
 
                     flowLayoutPanelHistory.Controls.Add(receiptPanel);
@@ -147,12 +172,51 @@ namespace pcstore_arm
             MessageBox.Show(message, "Детали заказа", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void PrintReceipt(int orderId, decimal orderSum, string orderList)
+        private void PrintReceipt(int orderId, DateTime orderTime, decimal orderSum, string orderList)
         {
+            // Разбор списка товаров
+            var orderItems = orderList.Split(',').Select(item =>
+            {
+                var parts = item.Split(':');
+                return new { ProductId = int.Parse(parts[0]), Quantity = int.Parse(parts[1]) };
+            }).ToList();
+
+            // Формирование SQL запроса для получения информации о товарах
+            string ids = string.Join(",", orderItems.Select(item => item.ProductId));
+            string query = $"SELECT id, name, cost FROM public.catalog WHERE id IN ({ids})";
+            NpgsqlCommand command = new NpgsqlCommand(query, connection);
+
+            var productDetails = new Dictionary<int, (string Name, decimal Cost)>();
+
+            using (NpgsqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    int productId = reader.GetInt32(0);
+                    string productName = reader.GetString(1);
+                    decimal productCost = reader.GetDecimal(2);
+
+                    productDetails[productId] = (productName, productCost);
+                }
+            }
+
+            // Формирование строки чека
             string receipt = $"Заказ №{orderId}\n";
-            receipt += $"Дата: {DateTime.Now}\n";
+            receipt += $"Дата: {orderTime}\n";
             receipt += $"Сумма: ₸{orderSum:0.00}\n";
-            receipt += $"\nСписок товаров: {orderList}\n";
+            receipt += "-----------------------------------------------------\n";
+            receipt += $"\nСписок товаров:\n";
+            
+            foreach (var item in orderItems)
+            {
+                if (productDetails.ContainsKey(item.ProductId))
+                {
+                    var product = productDetails[item.ProductId];
+                    receipt += $"Товар: {product.Name}\nКоличество: {item.Quantity}, Цена за штуку: ₸{product.Cost:0.00}, Всего: ₸{item.Quantity * product.Cost:0.00}\n\n";
+                }
+            }
+            receipt += "-----------------------------------------------------";
+            receipt += companyString;
 
             PrintDocument printDocument = new PrintDocument();
             printDocument.PrintPage += (sender, e) => PrintPageHandler(sender, e, receipt);
@@ -231,6 +295,11 @@ namespace pcstore_arm
             this.Hide();
             redactorForm.FormClosed += (s, args) => this.Close();
             redactorForm.Show();
+        }
+
+        private void обновитьДанныеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadReceipts();
         }
     }
 }

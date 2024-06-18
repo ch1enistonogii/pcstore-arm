@@ -45,6 +45,7 @@
             открытьИсториюПокупокToolStripMenuItem = new ToolStripMenuItem();
             перейтиВИсториюПокупокToolStripMenuItem = new ToolStripMenuItem();
             flowLayoutPanelHistory = new FlowLayoutPanel();
+            обновитьДанныеToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             // toolStripDropDownButton1
             // 
             toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { открытьМенюToolStripMenuItem, перезапускToolStripMenuItem });
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { открытьМенюToolStripMenuItem, обновитьДанныеToolStripMenuItem, перезапускToolStripMenuItem });
             toolStripDropDownButton1.Image = Properties.Resources.menu;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -70,14 +71,14 @@
             // открытьМенюToolStripMenuItem
             // 
             открытьМенюToolStripMenuItem.Name = "открытьМенюToolStripMenuItem";
-            открытьМенюToolStripMenuItem.Size = new Size(165, 22);
+            открытьМенюToolStripMenuItem.Size = new Size(180, 22);
             открытьМенюToolStripMenuItem.Text = "Перейти в меню";
             открытьМенюToolStripMenuItem.Click += открытьМенюToolStripMenuItem_Click;
             // 
             // перезапускToolStripMenuItem
             // 
             перезапускToolStripMenuItem.Name = "перезапускToolStripMenuItem";
-            перезапускToolStripMenuItem.Size = new Size(165, 22);
+            перезапускToolStripMenuItem.Size = new Size(180, 22);
             перезапускToolStripMenuItem.Text = "Перезапуск";
             перезапускToolStripMenuItem.Click += перезапускToolStripMenuItem_Click;
             // 
@@ -177,6 +178,13 @@
             flowLayoutPanelHistory.Size = new Size(776, 410);
             flowLayoutPanelHistory.TabIndex = 3;
             // 
+            // обновитьДанныеToolStripMenuItem
+            // 
+            обновитьДанныеToolStripMenuItem.Name = "обновитьДанныеToolStripMenuItem";
+            обновитьДанныеToolStripMenuItem.Size = new Size(180, 22);
+            обновитьДанныеToolStripMenuItem.Text = "Обновить данные";
+            обновитьДанныеToolStripMenuItem.Click += обновитьДанныеToolStripMenuItem_Click;
+            // 
             // history
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -215,5 +223,6 @@
         private System.Windows.Forms.Button printButton;
         private System.Windows.Forms.Button refreshButton;
         private FlowLayoutPanel flowLayoutPanelHistory;
+        private ToolStripMenuItem обновитьДанныеToolStripMenuItem;
     }
 }

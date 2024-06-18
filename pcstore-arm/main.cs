@@ -37,11 +37,20 @@ namespace pcstore_arm
             {
                 Themes.ApplyLightTheme(this);
             }
-            else
+            else if (currentTheme == "blue")
             {
                 Themes.ApplyBlueTheme(this);
             }
+            else if (currentTheme == "green")
+            {
+                Themes.ApplyGreenTheme(this);
+            }
+            else if (currentTheme == "pink")
+            {
+                Themes.ApplyPinkTheme(this);
+            }
         }
+
         private void PictureBoxLoad()
         {
             cashbox_pictureBox.ImageLocation = "etc\\icons\\default\\cashbox.png";

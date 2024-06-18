@@ -34,14 +34,21 @@ namespace pcstore_arm
         private void login_Load(object sender, EventArgs e)
         {
             currentTheme = Themes.LoadTheme();
-
             if (currentTheme == "light")
             {
                 Themes.ApplyLightTheme(this);
             }
-            else
+            else if (currentTheme == "blue")
             {
                 Themes.ApplyBlueTheme(this);
+            }
+            else if (currentTheme == "green")
+            {
+                Themes.ApplyGreenTheme(this);
+            }
+            else if (currentTheme == "pink")
+            {
+                Themes.ApplyPinkTheme(this);
             }
         }
 

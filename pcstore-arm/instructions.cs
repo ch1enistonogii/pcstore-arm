@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,33 @@ namespace pcstore_arm
 {
     public partial class instructions : Form
     {
+        private readonly IConnect connectionProvider;
+        private NpgsqlConnection connection;
+
+        themes Themes = new themes();
+        string currentTheme;
+
         public instructions(IConnect connectionProvider)
         {
             InitializeComponent();
+
+            currentTheme = Themes.LoadTheme();
+            if (currentTheme == "light")
+            {
+                Themes.ApplyLightTheme(this);
+            }
+            else if (currentTheme == "blue")
+            {
+                Themes.ApplyBlueTheme(this);
+            }
+            else if (currentTheme == "green")
+            {
+                Themes.ApplyGreenTheme(this);
+            }
+            else if (currentTheme == "pink")
+            {
+                Themes.ApplyPinkTheme(this);
+            }
         }
 
         private void instructions_Load(object sender, EventArgs e)

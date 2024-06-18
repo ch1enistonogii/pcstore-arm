@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             toolStrip1 = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             открытьМенюToolStripMenuItem = new ToolStripMenuItem();
@@ -49,18 +49,31 @@
             tabControl = new TabControl();
             tabPage1 = new TabPage();
             panel1 = new Panel();
+            refresh_pictureBox = new PictureBox();
+            delete_pictureBox = new PictureBox();
             category_comboBox = new ComboBox();
             sorting_comboBox = new ComboBox();
             search_pictureBox = new PictureBox();
             search_textBox = new TextBox();
             dataGridView1 = new DataGridView();
             tabPage2 = new TabPage();
+            category_textBox = new ComboBox();
+            addData_button = new Button();
+            description_textBox = new TextBox();
+            price_textBox = new TextBox();
+            quantity_textBox = new TextBox();
+            name_textBox = new TextBox();
+            img_textBox = new TextBox();
+            id_textBox = new TextBox();
             toolStrip1.SuspendLayout();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)refresh_pictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)delete_pictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)search_pictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // toolStrip1
@@ -85,20 +98,23 @@
             // открытьМенюToolStripMenuItem
             // 
             открытьМенюToolStripMenuItem.Name = "открытьМенюToolStripMenuItem";
-            открытьМенюToolStripMenuItem.Size = new Size(172, 22);
+            открытьМенюToolStripMenuItem.Size = new Size(180, 22);
             открытьМенюToolStripMenuItem.Text = "Перейти в меню";
+            открытьМенюToolStripMenuItem.Click += открытьМенюToolStripMenuItem_Click;
             // 
             // обновитьДанныеToolStripMenuItem
             // 
             обновитьДанныеToolStripMenuItem.Name = "обновитьДанныеToolStripMenuItem";
-            обновитьДанныеToolStripMenuItem.Size = new Size(172, 22);
+            обновитьДанныеToolStripMenuItem.Size = new Size(180, 22);
             обновитьДанныеToolStripMenuItem.Text = "Обновить данные";
+            обновитьДанныеToolStripMenuItem.Click += обновитьДанныеToolStripMenuItem_Click;
             // 
             // перезапускToolStripMenuItem
             // 
             перезапускToolStripMenuItem.Name = "перезапускToolStripMenuItem";
-            перезапускToolStripMenuItem.Size = new Size(172, 22);
+            перезапускToolStripMenuItem.Size = new Size(180, 22);
             перезапускToolStripMenuItem.Text = "Перезапуск";
+            перезапускToolStripMenuItem.Click += перезапускToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
@@ -118,14 +134,16 @@
             // открытьКассуToolStripMenuItem
             // 
             открытьКассуToolStripMenuItem.Name = "открытьКассуToolStripMenuItem";
-            открытьКассуToolStripMenuItem.Size = new Size(163, 22);
+            открытьКассуToolStripMenuItem.Size = new Size(180, 22);
             открытьКассуToolStripMenuItem.Text = "Открыть кассу";
+            открытьКассуToolStripMenuItem.Click += открытьКассуToolStripMenuItem_Click;
             // 
             // перейтиВКассуToolStripMenuItem
             // 
             перейтиВКассуToolStripMenuItem.Name = "перейтиВКассуToolStripMenuItem";
-            перейтиВКассуToolStripMenuItem.Size = new Size(163, 22);
+            перейтиВКассуToolStripMenuItem.Size = new Size(180, 22);
             перейтиВКассуToolStripMenuItem.Text = "Перейти в кассу";
+            перейтиВКассуToolStripMenuItem.Click += перейтиВКассуToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
@@ -147,12 +165,14 @@
             открытьРедакторToolStripMenuItem.Name = "открытьРедакторToolStripMenuItem";
             открытьРедакторToolStripMenuItem.Size = new Size(183, 22);
             открытьРедакторToolStripMenuItem.Text = "Открыть редактор";
+            открытьРедакторToolStripMenuItem.Click += открытьРедакторToolStripMenuItem_Click;
             // 
             // перейтиВРедакторToolStripMenuItem
             // 
             перейтиВРедакторToolStripMenuItem.Name = "перейтиВРедакторToolStripMenuItem";
             перейтиВРедакторToolStripMenuItem.Size = new Size(183, 22);
             перейтиВРедакторToolStripMenuItem.Text = "Перейти в редактор";
+            перейтиВРедакторToolStripMenuItem.Click += перейтиВРедакторToolStripMenuItem_Click;
             // 
             // toolStripSeparator3
             // 
@@ -174,12 +194,14 @@
             открытьИсториюПокупокToolStripMenuItem.Name = "открытьИсториюПокупокToolStripMenuItem";
             открытьИсториюПокупокToolStripMenuItem.Size = new Size(231, 22);
             открытьИсториюПокупокToolStripMenuItem.Text = "Открыть историю покупок";
+            открытьИсториюПокупокToolStripMenuItem.Click += открытьИсториюПокупокToolStripMenuItem_Click;
             // 
             // перейтиВИсториюПокупокToolStripMenuItem
             // 
             перейтиВИсториюПокупокToolStripMenuItem.Name = "перейтиВИсториюПокупокToolStripMenuItem";
             перейтиВИсториюПокупокToolStripMenuItem.Size = new Size(231, 22);
             перейтиВИсториюПокупокToolStripMenuItem.Text = "Перейти в историю покупок";
+            перейтиВИсториюПокупокToolStripMenuItem.Click += перейтиВИсториюПокупокToolStripMenuItem_Click;
             // 
             // tabControl
             // 
@@ -206,6 +228,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(refresh_pictureBox);
+            panel1.Controls.Add(delete_pictureBox);
             panel1.Controls.Add(category_comboBox);
             panel1.Controls.Add(sorting_comboBox);
             panel1.Controls.Add(search_pictureBox);
@@ -215,6 +239,30 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(226, 376);
             panel1.TabIndex = 1;
+            // 
+            // refresh_pictureBox
+            // 
+            refresh_pictureBox.Cursor = Cursors.Hand;
+            refresh_pictureBox.Image = Properties.Resources.refresh;
+            refresh_pictureBox.Location = new Point(134, 141);
+            refresh_pictureBox.Name = "refresh_pictureBox";
+            refresh_pictureBox.Size = new Size(50, 50);
+            refresh_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            refresh_pictureBox.TabIndex = 9;
+            refresh_pictureBox.TabStop = false;
+            refresh_pictureBox.Click += refresh_pictureBox_Click;
+            // 
+            // delete_pictureBox
+            // 
+            delete_pictureBox.Cursor = Cursors.Hand;
+            delete_pictureBox.Image = Properties.Resources.delete;
+            delete_pictureBox.Location = new Point(42, 141);
+            delete_pictureBox.Name = "delete_pictureBox";
+            delete_pictureBox.Size = new Size(50, 50);
+            delete_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            delete_pictureBox.TabIndex = 8;
+            delete_pictureBox.TabStop = false;
+            delete_pictureBox.Click += delete_pictureBox_Click;
             // 
             // category_comboBox
             // 
@@ -232,7 +280,7 @@
             // 
             sorting_comboBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
             sorting_comboBox.FormattingEnabled = true;
-            sorting_comboBox.Items.AddRange(new object[] { "ID  (Возрастание)", "Название  (Возрастание)", "Цена  (Возрастание)", "Категория  (Возрастание)", "Количество  (Возрастание)", "ID  (Убывание)", "Название  (Убывание)", "Цена  (Убывание)", "Категория  (Убывание)", "Количество  (Убывание)" });
+            sorting_comboBox.Items.AddRange(new object[] { "ID  (Возрастание)", "Название  (Возрастание)", "Цена  (Возрастание)", "Категория  (Возрастание)", "Количество  (Возрастание)", "ID  (Убывание)", "Название  (Убывание)", "Цена  (Убывание)", "Категория  (Убывание)", "Количество  (Убывание)", "Без сортировки" });
             sorting_comboBox.Location = new Point(7, 50);
             sorting_comboBox.Name = "sorting_comboBox";
             sorting_comboBox.Size = new Size(215, 31);
@@ -250,6 +298,7 @@
             search_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             search_pictureBox.TabIndex = 5;
             search_pictureBox.TabStop = false;
+            search_pictureBox.Click += search_pictureBox_Click;
             // 
             // search_textBox
             // 
@@ -269,14 +318,15 @@
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.BackgroundColor = SystemColors.ButtonHighlight;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.ButtonShadow;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Window;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.InactiveCaption;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.Desktop;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridView1.GridColor = SystemColors.ActiveCaption;
             dataGridView1.Location = new Point(6, 6);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
@@ -285,6 +335,14 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(category_textBox);
+            tabPage2.Controls.Add(addData_button);
+            tabPage2.Controls.Add(description_textBox);
+            tabPage2.Controls.Add(price_textBox);
+            tabPage2.Controls.Add(quantity_textBox);
+            tabPage2.Controls.Add(name_textBox);
+            tabPage2.Controls.Add(img_textBox);
+            tabPage2.Controls.Add(id_textBox);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -292,6 +350,105 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Добавление товара";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // category_textBox
+            // 
+            category_textBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            category_textBox.FormattingEnabled = true;
+            category_textBox.Items.AddRange(new object[] { "Системные блоки", "Ноутбуки", "Мыши", "Клавиатуры", "Накопители", "Кабели", "МФУ" });
+            category_textBox.Location = new Point(280, 31);
+            category_textBox.Name = "category_textBox";
+            category_textBox.Size = new Size(200, 31);
+            category_textBox.TabIndex = 13;
+            category_textBox.Text = "Категория";
+            // 
+            // addData_button
+            // 
+            addData_button.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            addData_button.Location = new Point(527, 31);
+            addData_button.Name = "addData_button";
+            addData_button.Size = new Size(216, 47);
+            addData_button.TabIndex = 12;
+            addData_button.Text = ">>> Добавить <<<";
+            addData_button.UseVisualStyleBackColor = true;
+            addData_button.Click += addData_button_Click;
+            // 
+            // description_textBox
+            // 
+            description_textBox.AcceptsReturn = true;
+            description_textBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            description_textBox.ForeColor = Color.Black;
+            description_textBox.Location = new Point(34, 215);
+            description_textBox.MinimumSize = new Size(200, 31);
+            description_textBox.Multiline = true;
+            description_textBox.Name = "description_textBox";
+            description_textBox.Size = new Size(200, 31);
+            description_textBox.TabIndex = 11;
+            description_textBox.TabStop = false;
+            description_textBox.Text = "Описание";
+            description_textBox.WordWrap = false;
+            description_textBox.TextChanged += description_textBox_TextChanged;
+            // 
+            // price_textBox
+            // 
+            price_textBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            price_textBox.ForeColor = Color.Black;
+            price_textBox.Location = new Point(34, 150);
+            price_textBox.MinimumSize = new Size(180, 30);
+            price_textBox.Name = "price_textBox";
+            price_textBox.Size = new Size(200, 31);
+            price_textBox.TabIndex = 9;
+            price_textBox.TabStop = false;
+            price_textBox.Text = "Цена";
+            // 
+            // quantity_textBox
+            // 
+            quantity_textBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            quantity_textBox.ForeColor = Color.Black;
+            quantity_textBox.Location = new Point(280, 90);
+            quantity_textBox.MinimumSize = new Size(180, 30);
+            quantity_textBox.Name = "quantity_textBox";
+            quantity_textBox.Size = new Size(200, 31);
+            quantity_textBox.TabIndex = 8;
+            quantity_textBox.TabStop = false;
+            quantity_textBox.Text = "Количество";
+            // 
+            // name_textBox
+            // 
+            name_textBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            name_textBox.ForeColor = Color.Black;
+            name_textBox.Location = new Point(34, 90);
+            name_textBox.MinimumSize = new Size(180, 30);
+            name_textBox.Name = "name_textBox";
+            name_textBox.Size = new Size(200, 31);
+            name_textBox.TabIndex = 7;
+            name_textBox.TabStop = false;
+            name_textBox.Text = "Название";
+            // 
+            // img_textBox
+            // 
+            img_textBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            img_textBox.ForeColor = Color.Black;
+            img_textBox.Location = new Point(280, 150);
+            img_textBox.MinimumSize = new Size(180, 30);
+            img_textBox.Name = "img_textBox";
+            img_textBox.Size = new Size(200, 31);
+            img_textBox.TabIndex = 6;
+            img_textBox.TabStop = false;
+            img_textBox.Text = "Путь до изображения";
+            img_textBox.DoubleClick += img_textBox_DoubleClick;
+            // 
+            // id_textBox
+            // 
+            id_textBox.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            id_textBox.ForeColor = Color.Black;
+            id_textBox.Location = new Point(34, 31);
+            id_textBox.MinimumSize = new Size(180, 30);
+            id_textBox.Name = "id_textBox";
+            id_textBox.Size = new Size(200, 31);
+            id_textBox.TabIndex = 5;
+            id_textBox.TabStop = false;
+            id_textBox.Text = "ID";
             // 
             // redactor
             // 
@@ -309,8 +466,12 @@
             tabPage1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)refresh_pictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)delete_pictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)search_pictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -343,5 +504,15 @@
         private PictureBox search_pictureBox;
         private TextBox search_textBox;
         private ComboBox category_comboBox;
+        private PictureBox refresh_pictureBox;
+        private PictureBox delete_pictureBox;
+        private TextBox name_textBox;
+        private TextBox img_textBox;
+        private TextBox id_textBox;
+        private TextBox quantity_textBox;
+        private TextBox description_textBox;
+        private TextBox price_textBox;
+        private Button addData_button;
+        private ComboBox category_textBox;
     }
 }

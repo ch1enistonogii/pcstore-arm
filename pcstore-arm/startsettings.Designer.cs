@@ -30,7 +30,9 @@
         {
             panel1 = new Panel();
             groupBox2 = new GroupBox();
-            darktheme_checkBox = new CheckBox();
+            pinktheme_checkBox = new CheckBox();
+            greentheme_checkBox = new CheckBox();
+            bluetheme_checkBox = new CheckBox();
             lighttheme_checkBox = new CheckBox();
             groupBox1 = new GroupBox();
             set_button = new Button();
@@ -62,7 +64,9 @@
             // groupBox2
             // 
             groupBox2.BackColor = Color.Transparent;
-            groupBox2.Controls.Add(darktheme_checkBox);
+            groupBox2.Controls.Add(pinktheme_checkBox);
+            groupBox2.Controls.Add(greentheme_checkBox);
+            groupBox2.Controls.Add(bluetheme_checkBox);
             groupBox2.Controls.Add(lighttheme_checkBox);
             groupBox2.ForeColor = SystemColors.ActiveCaptionText;
             groupBox2.Location = new Point(282, 3);
@@ -72,23 +76,44 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Внешний вид";
             // 
-            // darktheme_checkBox
+            // pinktheme_checkBox
             // 
-            darktheme_checkBox.AutoSize = true;
-            darktheme_checkBox.Location = new Point(23, 61);
-            darktheme_checkBox.Name = "darktheme_checkBox";
-            darktheme_checkBox.Size = new Size(108, 19);
-            darktheme_checkBox.TabIndex = 1;
-            darktheme_checkBox.Text = "Небесная тема";
-            darktheme_checkBox.UseVisualStyleBackColor = true;
-            darktheme_checkBox.CheckedChanged += darktheme_checkBox_CheckedChanged;
+            pinktheme_checkBox.AutoSize = true;
+            pinktheme_checkBox.Location = new Point(34, 158);
+            pinktheme_checkBox.Margin = new Padding(10);
+            pinktheme_checkBox.Name = "pinktheme_checkBox";
+            pinktheme_checkBox.Size = new Size(99, 19);
+            pinktheme_checkBox.TabIndex = 3;
+            pinktheme_checkBox.Text = "Розовая тема";
+            pinktheme_checkBox.UseVisualStyleBackColor = true;
+            // 
+            // greentheme_checkBox
+            // 
+            greentheme_checkBox.AutoSize = true;
+            greentheme_checkBox.Location = new Point(34, 119);
+            greentheme_checkBox.Margin = new Padding(10);
+            greentheme_checkBox.Name = "greentheme_checkBox";
+            greentheme_checkBox.Size = new Size(100, 19);
+            greentheme_checkBox.TabIndex = 2;
+            greentheme_checkBox.Text = "Зеленая тема";
+            greentheme_checkBox.UseVisualStyleBackColor = true;
+            // 
+            // bluetheme_checkBox
+            // 
+            bluetheme_checkBox.AutoSize = true;
+            bluetheme_checkBox.Location = new Point(35, 80);
+            bluetheme_checkBox.Margin = new Padding(10);
+            bluetheme_checkBox.Name = "bluetheme_checkBox";
+            bluetheme_checkBox.Size = new Size(100, 19);
+            bluetheme_checkBox.TabIndex = 1;
+            bluetheme_checkBox.Text = "Голубая тема";
+            bluetheme_checkBox.UseVisualStyleBackColor = true;
             // 
             // lighttheme_checkBox
             // 
             lighttheme_checkBox.AutoSize = true;
-            lighttheme_checkBox.Checked = true;
-            lighttheme_checkBox.CheckState = CheckState.Checked;
-            lighttheme_checkBox.Location = new Point(23, 36);
+            lighttheme_checkBox.Location = new Point(35, 41);
+            lighttheme_checkBox.Margin = new Padding(10);
             lighttheme_checkBox.Name = "lighttheme_checkBox";
             lighttheme_checkBox.Size = new Size(99, 19);
             lighttheme_checkBox.TabIndex = 0;
@@ -114,7 +139,6 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Подключение к базе данных";
-            groupBox1.Enter += groupBox1_Enter;
             // 
             // set_button
             // 
@@ -241,7 +265,7 @@
         private Panel panel1;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private CheckBox darktheme_checkBox;
+        private CheckBox bluetheme_checkBox;
         private CheckBox lighttheme_checkBox;
         private TextBox db_textBox;
         private TextBox port_textBox;
@@ -251,5 +275,7 @@
         private PictureBox ip_pictureBox;
         private LinkLabel setdefault_linkLabel;
         private Button set_button;
+        private CheckBox pinktheme_checkBox;
+        private CheckBox greentheme_checkBox;
     }
 }
