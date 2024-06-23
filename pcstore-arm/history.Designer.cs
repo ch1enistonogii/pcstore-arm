@@ -31,6 +31,7 @@
             toolStrip1 = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             открытьМенюToolStripMenuItem = new ToolStripMenuItem();
+            обновитьДанныеToolStripMenuItem = new ToolStripMenuItem();
             перезапускToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             toolStripDropDownButton2 = new ToolStripDropDownButton();
@@ -45,7 +46,6 @@
             открытьИсториюПокупокToolStripMenuItem = new ToolStripMenuItem();
             перейтиВИсториюПокупокToolStripMenuItem = new ToolStripMenuItem();
             flowLayoutPanelHistory = new FlowLayoutPanel();
-            обновитьДанныеToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -71,14 +71,21 @@
             // открытьМенюToolStripMenuItem
             // 
             открытьМенюToolStripMenuItem.Name = "открытьМенюToolStripMenuItem";
-            открытьМенюToolStripMenuItem.Size = new Size(180, 22);
+            открытьМенюToolStripMenuItem.Size = new Size(172, 22);
             открытьМенюToolStripMenuItem.Text = "Перейти в меню";
             открытьМенюToolStripMenuItem.Click += открытьМенюToolStripMenuItem_Click;
+            // 
+            // обновитьДанныеToolStripMenuItem
+            // 
+            обновитьДанныеToolStripMenuItem.Name = "обновитьДанныеToolStripMenuItem";
+            обновитьДанныеToolStripMenuItem.Size = new Size(172, 22);
+            обновитьДанныеToolStripMenuItem.Text = "Обновить данные";
+            обновитьДанныеToolStripMenuItem.Click += обновитьДанныеToolStripMenuItem_Click;
             // 
             // перезапускToolStripMenuItem
             // 
             перезапускToolStripMenuItem.Name = "перезапускToolStripMenuItem";
-            перезапускToolStripMenuItem.Size = new Size(180, 22);
+            перезапускToolStripMenuItem.Size = new Size(172, 22);
             перезапускToolStripMenuItem.Text = "Перезапуск";
             перезапускToolStripMenuItem.Click += перезапускToolStripMenuItem_Click;
             // 
@@ -178,13 +185,6 @@
             flowLayoutPanelHistory.Size = new Size(776, 410);
             flowLayoutPanelHistory.TabIndex = 3;
             // 
-            // обновитьДанныеToolStripMenuItem
-            // 
-            обновитьДанныеToolStripMenuItem.Name = "обновитьДанныеToolStripMenuItem";
-            обновитьДанныеToolStripMenuItem.Size = new Size(180, 22);
-            обновитьДанныеToolStripMenuItem.Text = "Обновить данные";
-            обновитьДанныеToolStripMenuItem.Click += обновитьДанныеToolStripMenuItem_Click;
-            // 
             // history
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -193,7 +193,7 @@
             Controls.Add(flowLayoutPanelHistory);
             Controls.Add(toolStrip1);
             Name = "history";
-            Text = "history";
+            Text = "История покупок";
             Load += history_Load;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();

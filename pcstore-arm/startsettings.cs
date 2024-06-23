@@ -32,14 +32,16 @@ namespace pcstore_arm
 
         private void startsettings_Load(object sender, EventArgs e)
         {
-            LoadConfig();
-            LoadThemes();
+            LoadConfig(); // Загрузка конфига
+            LoadThemes(); // Загрузка тем
 
-            ApplyCurrentTheme();
+            ApplyCurrentTheme(); // Установка текущей темы
         }
 
         private void LoadConfig()
         {
+            // Функция считывает данные из config.txt
+
             if (File.Exists(configFilePath) && File.ReadAllLines(configFilePath).Length > 0)
             {
                 try
@@ -58,7 +60,8 @@ namespace pcstore_arm
 
         private void LoadThemes()
         {
-            // Загрузите текущую тему из файла и установите соответствующие чекбоксы
+            // Функция загружает текущую тему из файла и устанавливает соответствующие чекбоксы
+
             currentTheme = File.ReadAllText(themeFilePath).Trim();
 
             lighttheme_checkBox.CheckedChanged -= lighttheme_checkBox_CheckedChanged;
@@ -90,6 +93,7 @@ namespace pcstore_arm
 
         private void ApplyCurrentTheme()
         {
+            // Установка текущей темы
             switch (currentTheme)
             {
                 case "light":
@@ -167,6 +171,8 @@ namespace pcstore_arm
 
         private void UpdateTheme(string theme)
         {
+            // Функция вносит изменения в конфиг файл с темой
+
             try
             {
                 File.WriteAllText(themeFilePath, theme);

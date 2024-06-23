@@ -57,12 +57,16 @@
             toolStripDropDownButton4 = new ToolStripDropDownButton();
             открытьИсториюПокупокToolStripMenuItem = new ToolStripMenuItem();
             перейтиВИсториюПокупокToolStripMenuItem = new ToolStripMenuItem();
+            label1 = new Label();
+            totalcost_label = new Label();
+            panel3 = new Panel();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)search_pictureBox).BeginInit();
             tabPage2.SuspendLayout();
             toolStrip1.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -90,6 +94,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(panel3);
             panel1.Controls.Add(category_comboBox);
             panel1.Controls.Add(sorting_comboBox);
             panel1.Controls.Add(search_pictureBox);
@@ -152,7 +157,7 @@
             // order_button
             // 
             order_button.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point);
-            order_button.Location = new Point(7, 123);
+            order_button.Location = new Point(7, 181);
             order_button.Name = "order_button";
             order_button.Size = new Size(215, 52);
             order_button.TabIndex = 0;
@@ -325,6 +330,37 @@
             перейтиВИсториюПокупокToolStripMenuItem.Text = "Перейти в историю покупок";
             перейтиВИсториюПокупокToolStripMenuItem.Click += перейтиВИсториюПокупокToolStripMenuItem_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Italic, GraphicsUnit.Point);
+            label1.Location = new Point(5, 5);
+            label1.Name = "label1";
+            label1.Size = new Size(68, 17);
+            label1.TabIndex = 9;
+            label1.Text = "К оплате:";
+            label1.Click += label1_Click;
+            // 
+            // totalcost_label
+            // 
+            totalcost_label.AutoSize = true;
+            totalcost_label.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            totalcost_label.Location = new Point(11, 22);
+            totalcost_label.Name = "totalcost_label";
+            totalcost_label.Size = new Size(23, 25);
+            totalcost_label.TabIndex = 10;
+            totalcost_label.Text = "0";
+            // 
+            // panel3
+            // 
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(label1);
+            panel3.Controls.Add(totalcost_label);
+            panel3.Location = new Point(7, 123);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(215, 52);
+            panel3.TabIndex = 11;
+            // 
             // catalog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -333,7 +369,7 @@
             Controls.Add(toolStrip1);
             Controls.Add(tabControl1);
             Name = "catalog";
-            Text = "catalog";
+            Text = "Каталог";
             Load += catalog_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
@@ -343,6 +379,8 @@
             tabPage2.ResumeLayout(false);
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -378,5 +416,8 @@
         private ToolStripMenuItem перейтиВИсториюПокупокToolStripMenuItem;
         private ToolStripMenuItem обновитьДанныеToolStripMenuItem;
         private ComboBox category_comboBox;
+        private Panel panel3;
+        private Label totalcost_label;
+        private Label label1;
     }
 }

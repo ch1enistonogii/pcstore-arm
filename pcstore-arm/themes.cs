@@ -19,39 +19,33 @@ namespace pcstore_arm
             {
                 try
                 {
-                    // Прочитать все строки файла
                     string[] lines = File.ReadAllLines(themeConfig);
 
-                    // Проверить, пуста ли первая строка
                     if (lines.Length > 0 && !string.IsNullOrEmpty(lines[0]))
                     {
-                        return lines[0]; // Вернуть первую непустую строку
+                        return lines[0];
                     }
                     else
                     {
-                        // Обработать случай пустой первой строки или отсутствия строк
-                        return null; // Или предоставить тему по умолчанию
+                        return null;
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Ошибка при чтении данных из файла: {ex.Message}");
-                    return null; // Или предоставить тему по умолчанию при ошибке
+                    return null;
                 }
             }
             else
             {
-                // Обработать случай отсутствия файла
-                return null; // Или предоставить тему по умолчанию
+                return null;
             }
         }
 
         public void ApplyLightTheme(Form form)
         {
-            // Изменение фона формы
             form.BackColor = Color.White;
 
-            // Изменение цвета текста формы
             form.ForeColor = Color.Black;
 
             // Применение светлой темы ко всем элементам управления на форме
@@ -63,10 +57,8 @@ namespace pcstore_arm
 
         public void ApplyLightThemeToControl(Control control)
         {
-            // Изменение фона элемента управления
             control.BackColor = Color.WhiteSmoke;
 
-            // Изменение цвета текста элемента управления
             control.ForeColor = Color.Black;
 
             // Применение светлой темы ко всем дочерним элементам управления
@@ -80,7 +72,6 @@ namespace pcstore_arm
         {
             form.BackColor = Color.FromArgb(173, 216, 230);
 
-            // Изменение цвета текста формы
             form.ForeColor = Color.Black;
 
             foreach (Control control in form.Controls)
@@ -91,7 +82,7 @@ namespace pcstore_arm
 
         public void ApplyBlueThemeToControl(Control control)
         {
-            control.BackColor = Color.FromArgb(240, 248, 255); // AliceBlue
+            control.BackColor = Color.FromArgb(240, 248, 255);
 
             control.ForeColor = Color.Black;
 
@@ -103,13 +94,10 @@ namespace pcstore_arm
 
         public void ApplyGreenTheme(Form form)
         {
-            // Изменение фона формы
             form.BackColor = Color.FromArgb(144, 238, 144);
 
-            // Изменение цвета текста формы
             form.ForeColor = Color.DarkGreen;
 
-            // Применение зеленой темы ко всем элементам управления на форме
             foreach (Control control in form.Controls)
             {
                 ApplyGreenThemeToControl(control);
@@ -118,13 +106,10 @@ namespace pcstore_arm
 
         public void ApplyGreenThemeToControl(Control control)
         {
-            // Изменение фона элемента управления
             control.BackColor = Color.Honeydew;
 
-            // Изменение цвета текста элемента управления
             control.ForeColor = Color.DarkGreen;
 
-            // Применение зеленой темы ко всем дочерним элементам управления
             foreach (Control childControl in control.Controls)
             {
                 ApplyGreenThemeToControl(childControl);
@@ -133,13 +118,10 @@ namespace pcstore_arm
 
         public void ApplyPinkTheme(Form form)
         {
-            // Изменение фона формы
             form.BackColor = Color.FromArgb(255, 182, 193);
 
-            // Изменение цвета текста формы
             form.ForeColor = Color.DarkRed;
 
-            // Применение розовой темы ко всем элементам управления на форме
             foreach (Control control in form.Controls)
             {
                 ApplyPinkThemeToControl(control);
@@ -148,13 +130,10 @@ namespace pcstore_arm
 
         public void ApplyPinkThemeToControl(Control control)
         {
-            // Изменение фона элемента управления
             control.BackColor = Color.LavenderBlush;
 
-            // Изменение цвета текста элемента управления
             control.ForeColor = Color.DarkRed;
 
-            // Применение розовой темы ко всем дочерним элементам управления
             foreach (Control childControl in control.Controls)
             {
                 ApplyPinkThemeToControl(childControl);

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             toolStrip1 = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             открытьМенюToolStripMenuItem = new ToolStripMenuItem();
@@ -98,21 +98,21 @@
             // открытьМенюToolStripMenuItem
             // 
             открытьМенюToolStripMenuItem.Name = "открытьМенюToolStripMenuItem";
-            открытьМенюToolStripMenuItem.Size = new Size(180, 22);
+            открытьМенюToolStripMenuItem.Size = new Size(172, 22);
             открытьМенюToolStripMenuItem.Text = "Перейти в меню";
             открытьМенюToolStripMenuItem.Click += открытьМенюToolStripMenuItem_Click;
             // 
             // обновитьДанныеToolStripMenuItem
             // 
             обновитьДанныеToolStripMenuItem.Name = "обновитьДанныеToolStripMenuItem";
-            обновитьДанныеToolStripMenuItem.Size = new Size(180, 22);
+            обновитьДанныеToolStripMenuItem.Size = new Size(172, 22);
             обновитьДанныеToolStripMenuItem.Text = "Обновить данные";
             обновитьДанныеToolStripMenuItem.Click += обновитьДанныеToolStripMenuItem_Click;
             // 
             // перезапускToolStripMenuItem
             // 
             перезапускToolStripMenuItem.Name = "перезапускToolStripMenuItem";
-            перезапускToolStripMenuItem.Size = new Size(180, 22);
+            перезапускToolStripMenuItem.Size = new Size(172, 22);
             перезапускToolStripMenuItem.Text = "Перезапуск";
             перезапускToolStripMenuItem.Click += перезапускToolStripMenuItem_Click;
             // 
@@ -134,14 +134,14 @@
             // открытьКассуToolStripMenuItem
             // 
             открытьКассуToolStripMenuItem.Name = "открытьКассуToolStripMenuItem";
-            открытьКассуToolStripMenuItem.Size = new Size(180, 22);
+            открытьКассуToolStripMenuItem.Size = new Size(163, 22);
             открытьКассуToolStripMenuItem.Text = "Открыть кассу";
             открытьКассуToolStripMenuItem.Click += открытьКассуToolStripMenuItem_Click;
             // 
             // перейтиВКассуToolStripMenuItem
             // 
             перейтиВКассуToolStripMenuItem.Name = "перейтиВКассуToolStripMenuItem";
-            перейтиВКассуToolStripMenuItem.Size = new Size(180, 22);
+            перейтиВКассуToolStripMenuItem.Size = new Size(163, 22);
             перейтиВКассуToolStripMenuItem.Text = "Перейти в кассу";
             перейтиВКассуToolStripMenuItem.Click += перейтиВКассуToolStripMenuItem_Click;
             // 
@@ -318,14 +318,14 @@
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.BackgroundColor = SystemColors.ButtonHighlight;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Window;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.InactiveCaption;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.Desktop;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.InactiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.Desktop;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.GridColor = SystemColors.ActiveCaption;
             dataGridView1.Location = new Point(6, 6);
             dataGridView1.Name = "dataGridView1";
@@ -458,7 +458,7 @@
             Controls.Add(tabControl);
             Controls.Add(toolStrip1);
             Name = "redactor";
-            Text = "redactor";
+            Text = "Редактор";
             Load += redactor_Load;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();

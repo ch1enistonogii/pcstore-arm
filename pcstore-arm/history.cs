@@ -74,7 +74,7 @@ namespace pcstore_arm
         {
             flowLayoutPanelHistory.Controls.Clear();
 
-            string query = "SELECT id, \"time\", sum, list FROM public.history";
+            string query = "SELECT id, \"time\", sum, list FROM public.history ORDER BY id DESC";
             NpgsqlCommand command = new NpgsqlCommand(query, connection);
 
             using (NpgsqlDataReader reader = command.ExecuteReader())

@@ -13,45 +13,48 @@ namespace pcstore_arm
 {
     public partial class instructions : Form
     {
-        private readonly IConnect connectionProvider;
-        private NpgsqlConnection connection;
+        private readonly IConnect connectionProvider; 
+        private NpgsqlConnection connection; // Переменная для хранения подключения к базе данных Npgsql
 
-        themes Themes = new themes();
+        themes Themes = new themes(); // Создание экземляра класса "Темы"
         string currentTheme;
 
         public instructions(IConnect connectionProvider)
         {
-            InitializeComponent();
+            InitializeComponent(); // Инициализация компонентов формы авторизации
 
-            currentTheme = Themes.LoadTheme();
+            currentTheme = Themes.LoadTheme(); // Загрузка актуальной темы из конфиг файла
+
             if (currentTheme == "light")
             {
-                Themes.ApplyLightTheme(this);
+                Themes.ApplyLightTheme(this); // Применение светлой темы
             }
             else if (currentTheme == "blue")
             {
-                Themes.ApplyBlueTheme(this);
+                Themes.ApplyBlueTheme(this); // Применение голубой темы
             }
             else if (currentTheme == "green")
             {
-                Themes.ApplyGreenTheme(this);
+                Themes.ApplyGreenTheme(this); // Применение зелёной темы
             }
             else if (currentTheme == "pink")
             {
-                Themes.ApplyPinkTheme(this);
+                Themes.ApplyPinkTheme(this); // Применение розовой темы
             }
         }
 
         private void instructions_Load(object sender, EventArgs e)
         {
-            SetStartRichTextBoxText();
-            SetSetupRichTextBoxText();
-            SetEndRichTextBoxText();
+            SetStartRichTextBoxText(); // Загрузка первой страницы установки
+            SetSetupRichTextBoxText(); // Загрузка второй страницы установки
+            SetEndRichTextBoxText(); // Загрузка третьей страницы установки
         }
 
         private void SetStartRichTextBoxText()
         {
-            start_richTextBox.Clear();
+            // Загрузка первой страницы установки
+
+            start_richTextBox.Clear(); // Очистка richBox
 
             AppendFormattedText(start_richTextBox, "Программа позволяет автоматизировать процесс продажи компьютерной техники, периферии и аксессуаров.\n", FontStyle.Bold);
             AppendFormattedText(start_richTextBox, "Перед началом работы с программой необходимо выполнить несколько важных шагов:\n\n", FontStyle.Bold);
@@ -98,7 +101,9 @@ namespace pcstore_arm
 
         private void SetSetupRichTextBoxText()
         {
-            setup_richTextBox.Clear();
+            // Загрузка второй страницы установки
+
+            setup_richTextBox.Clear(); // Очистка richBox
 
             AppendFormattedText(setup_richTextBox, "Пошаговая установка PostgreSQL:\n", FontStyle.Bold);
             AppendFormattedText(setup_richTextBox, "1) Скачать установочный файл:\n\n", FontStyle.Bold);
@@ -136,7 +141,9 @@ namespace pcstore_arm
 
         private void SetEndRichTextBoxText()
         {
-            end_richTextBox.Clear();
+            // Загрузка третьей страницы установки
+
+            end_richTextBox.Clear();  // Очистка richBox
 
             AppendFormattedText(end_richTextBox, "Пошаговое развертывание структуры базы данных:\n", FontStyle.Bold);
 
@@ -169,8 +176,13 @@ namespace pcstore_arm
 
         private void AppendFormattedText(RichTextBox richTextBox, string text, FontStyle style)
         {
+            // Устанавливает шрифт выделения для RichTextBox в новый шрифт с заданным стилем
             richTextBox.SelectionFont = new Font(richTextBox.Font, style);
+
+            // Добавляет указанный текст в RichTextBox
             richTextBox.AppendText(text);
+
+            // Сбрасывает шрифт выделения на исходный шрифт RichTextBox
             richTextBox.SelectionFont = richTextBox.Font;
         }
     }

@@ -78,10 +78,11 @@ namespace pcstore_arm
 
         private void ClearCart()
         {
-            selectedProducts.Clear(); 
-            productQuantities.Clear(); // Очистите словарь количества
+            selectedProducts.Clear();
+            productQuantities.Clear();
             flowLayoutPanel2.Controls.Clear();
-            tabPage2.Text = "Корзина (0)"; // Сброс текста вкладки
+            tabPage2.Text = "Корзина (0)";
+            UpdateTotalCost();
         }
 
         private void LoadCompanyConfig()
@@ -213,6 +214,22 @@ namespace pcstore_arm
 
             selectedProducts.Add(productId);
             LoadShoppingList();
+            UpdateTotalCost(); // Обновляем итоговую цену
+        }
+
+        private void RemoveFromCart(int productId)
+        {
+            if (productQuantities.ContainsKey(productId))
+            {
+                productQuantities[productId]--;
+                if (productQuantities[productId] <= 0)
+                {
+                    productQuantities.Remove(productId);
+                    selectedProducts.RemoveAll(id => id == productId);
+                }
+            }
+            LoadShoppingList();
+            UpdateTotalCost(); // Обновляем итоговую цену
         }
 
         private void LoadShoppingList()
@@ -223,6 +240,7 @@ namespace pcstore_arm
             {
                 MessageBox.Show("Корзина пуста", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 tabPage2.Text = "Корзина";
+                UpdateTotalCost(); // Обновляем итоговую цену
                 return;
             }
 
@@ -309,20 +327,7 @@ namespace pcstore_arm
                 }
                 tabPage2.Text = $"Корзина ({selectedProducts.Distinct().Count()})";
             }
-        }
-
-        private void RemoveFromCart(int productId)
-        {
-            if (productQuantities.ContainsKey(productId))
-            {
-                productQuantities[productId]--;
-                if (productQuantities[productId] <= 0)
-                {
-                    productQuantities.Remove(productId);
-                    selectedProducts.RemoveAll(id => id == productId);
-                }
-            }
-            LoadShoppingList();
+            UpdateTotalCost(); // Обновляем итоговую цену
         }
 
         private void order_button_Click(object sender, EventArgs e)
@@ -333,6 +338,15 @@ namespace pcstore_arm
                 return;
             }
             PlaceOrder();
+        }
+
+        private void UpdateTotalCost()
+        {
+            decimal totalCost = selectedProducts
+                .Distinct()
+                .Sum(productId => GetProductPrice(productId) * productQuantities[productId]);
+
+            totalcost_label.Text = totalCost.ToString();
         }
 
         private void PlaceOrder()
@@ -386,9 +400,9 @@ namespace pcstore_arm
                 }
                 catch (Exception ex)
                 {
-                    // Откатить транзакцию в случае ошибки
+                    // Откат транзакции в случае ошибки
                     transaction.Rollback();
-                    MessageBox.Show($"Ошибка при оформлении заказа: {ex.Message}","Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"Ошибка при оформлении заказа: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 LoadProducts(query);
             }
@@ -468,7 +482,7 @@ namespace pcstore_arm
 
         private void PrintPageHandler(object sender, PrintPageEventArgs e, string receipt)
         {
-            // Настроить шрифт и положение для печати
+            // Настраивает шрифт и положение для печати
             Font font = new Font("Arial", 12);
             float lineHeight = font.GetHeight(e.Graphics);
             float x = e.MarginBounds.Left;
@@ -625,6 +639,11 @@ namespace pcstore_arm
         private void обновитьДанныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadProducts(query);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

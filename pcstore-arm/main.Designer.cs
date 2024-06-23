@@ -49,8 +49,16 @@
             reboot_panel = new Panel();
             reboot_label = new Label();
             reboot_pictureBox = new PictureBox();
+            start_richTextBox = new RichTextBox();
+            settings_richTextBox = new RichTextBox();
+            cashbox_richTextBox = new RichTextBox();
+            storage_richTextBox = new RichTextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            panel1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            tabPage3.SuspendLayout();
+            tabPage4.SuspendLayout();
             cashbox_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cashbox_pictureBox).BeginInit();
             storage_panel.SuspendLayout();
@@ -86,11 +94,12 @@
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(546, 512);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "Подключение к БД";
+            tabPage1.Text = "Начало работы";
             // 
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.Controls.Add(start_richTextBox);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
@@ -101,10 +110,11 @@
             // 
             tabPage2.AutoScroll = true;
             tabPage2.BackColor = Color.Transparent;
+            tabPage2.Controls.Add(settings_richTextBox);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(546, 493);
+            tabPage2.Size = new Size(546, 512);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Настройка";
             // 
@@ -112,9 +122,10 @@
             // 
             tabPage3.AutoScroll = true;
             tabPage3.BackColor = Color.Transparent;
+            tabPage3.Controls.Add(cashbox_richTextBox);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(546, 493);
+            tabPage3.Size = new Size(546, 512);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Работа с кассой";
             // 
@@ -122,9 +133,10 @@
             // 
             tabPage4.AutoScroll = true;
             tabPage4.BackColor = Color.Transparent;
+            tabPage4.Controls.Add(storage_richTextBox);
             tabPage4.Location = new Point(4, 24);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(546, 493);
+            tabPage4.Size = new Size(546, 512);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Работа со складом";
             // 
@@ -289,6 +301,46 @@
             reboot_pictureBox.TabStop = false;
             reboot_pictureBox.Click += reboot_panel_Click;
             // 
+            // start_richTextBox
+            // 
+            start_richTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            start_richTextBox.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            start_richTextBox.Location = new Point(3, 3);
+            start_richTextBox.Name = "start_richTextBox";
+            start_richTextBox.Size = new Size(534, 500);
+            start_richTextBox.TabIndex = 1;
+            start_richTextBox.Text = "";
+            // 
+            // settings_richTextBox
+            // 
+            settings_richTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            settings_richTextBox.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            settings_richTextBox.Location = new Point(6, 6);
+            settings_richTextBox.Name = "settings_richTextBox";
+            settings_richTextBox.Size = new Size(534, 500);
+            settings_richTextBox.TabIndex = 2;
+            settings_richTextBox.Text = "";
+            // 
+            // cashbox_richTextBox
+            // 
+            cashbox_richTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            cashbox_richTextBox.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            cashbox_richTextBox.Location = new Point(6, 6);
+            cashbox_richTextBox.Name = "cashbox_richTextBox";
+            cashbox_richTextBox.Size = new Size(534, 500);
+            cashbox_richTextBox.TabIndex = 2;
+            cashbox_richTextBox.Text = "";
+            // 
+            // storage_richTextBox
+            // 
+            storage_richTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            storage_richTextBox.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            storage_richTextBox.Location = new Point(6, 6);
+            storage_richTextBox.Name = "storage_richTextBox";
+            storage_richTextBox.Size = new Size(534, 500);
+            storage_richTextBox.TabIndex = 2;
+            storage_richTextBox.Text = "";
+            // 
             // main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -306,6 +358,10 @@
             Load += main_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
+            tabPage3.ResumeLayout(false);
+            tabPage4.ResumeLayout(false);
             cashbox_panel.ResumeLayout(false);
             cashbox_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)cashbox_pictureBox).EndInit();
@@ -347,5 +403,9 @@
         private Panel reboot_panel;
         private Label reboot_label;
         private PictureBox reboot_pictureBox;
+        private RichTextBox start_richTextBox;
+        private RichTextBox settings_richTextBox;
+        private RichTextBox cashbox_richTextBox;
+        private RichTextBox storage_richTextBox;
     }
 }
